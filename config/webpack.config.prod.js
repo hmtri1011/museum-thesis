@@ -8,6 +8,8 @@ var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var paths = require('./paths');
 var getClientEnvironment = require('./env');
+var smartImport = require('postcss-smart-import');
+var precss = require('precss');
 
 
 
@@ -169,6 +171,8 @@ module.exports = {
   // We use PostCSS for autoprefixing only.
   postcss: function() {
     return [
+      smartImport,
+      precss,
       autoprefixer({
         browsers: [
           '>1%',

@@ -8,6 +8,8 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
+var smartImport = require('postcss-smart-import');
+var precss = require('precss');
 
 
 
@@ -165,6 +167,8 @@ module.exports = {
   // We use PostCSS for autoprefixing only.
   postcss: function() {
     return [
+      smartImport,
+      precss,
       autoprefixer({
         browsers: [
           '>1%',
