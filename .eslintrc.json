@@ -26,7 +26,9 @@
         "sourceType": "module"
     },
     "rules": {
-        "react/prop-types": [0],
+        "react/prop-types": [
+            0
+        ],
         "react/jsx-filename-extension": "off",
         "react/jsx-indent": "off",
         "react/jsx-indent-props": "off",
@@ -36,15 +38,19 @@
         "react/sort-comp": "off",
         "react/sort-prop-types": "off",
         "react/jsx-max-props-per-line": "off",
-        "react/jsx-no-bind": ["error", {
-            "ignoreRefs": true
-        }],
+        "react/jsx-no-bind": [
+            "error",
+            {
+                "ignoreRefs": true
+            }
+        ],
         "react/forbid-component-props": "off",
         "react/jsx-handler-names": "off",
         "react/forbid-prop-types": "off",
         "react/no-set-state": "off",
         "react/no-danger": "off",
-        "semi": "off"
+        "semi": "off",
+        "no-console": "off"
     },
     "globals": {
         "ga": true,
