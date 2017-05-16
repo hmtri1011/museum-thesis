@@ -1,8 +1,9 @@
 import fetch from 'isomorphic-fetch'
+import config from '../config'
 
-export async function getAllCategory() {
+async function fetchAllCategory() {
   try {
-    return await fetch('http://localhost:6060/api/categories').then(list =>
+    return await fetch(`${config.hostAPI}/api/categories`).then(list =>
       list.json()
     )
   } catch (err) {
@@ -10,9 +11,17 @@ export async function getAllCategory() {
   }
 }
 
-export async function addNewCategory(data) {
+export function getAllCategory() {
+  return dispatch => {
+    fetchAllCategory().then(listItem => {
+      dispatch({ type: 'GET_ALL_CATEGORY_SUCCESS', listItem })
+    })
+  }
+}
+
+async function addNewCategory(data) {
   try {
-    return await fetch('http://localhost:6060/api/categories', {
+    return await fetch(`${config.hostAPI}/api/categories`, {
       method: 'POST',
       body: JSON.stringify(data)
     }).then(newItem => newItem.json())

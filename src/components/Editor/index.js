@@ -2,12 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { uploadItem, addNewItem } from '../../actions/item'
-import Transform from '../../components/Transform'
-import path from 'path'
+import { getAllCategory } from '../../actions/category'
+import styles from './editor.css'
+import Preview from '../Preview'
 
-@connect(null, dispatch => ({
-  actions: bindActionCreators({ uploadItem, addNewItem }, dispatch)
-}))
+@connect(
+  state => ({
+    listCategory: state.categories
+  }),
+  dispatch => ({
+    actions: bindActionCreators({ uploadItem, addNewItem }, dispatch),
+    category: bindActionCreators({ getAllCategory }, dispatch)
+  })
+)
 export default class Editor extends Component {
   constructor(props) {
     super(props)
@@ -16,8 +23,14 @@ export default class Editor extends Component {
       imageFile: '',
       imagePreview: '',
       modelFile: '',
-      modelPreview: ''
+      modelPreview: '',
+      isAddCategory: false
     }
+  }
+
+  componentDidMount() {
+    const { getAllCategory } = this.props.category
+    getAllCategory()
   }
 
   _handleChange = () => {
@@ -81,11 +94,30 @@ export default class Editor extends Component {
 
   render() {
     const { haveModel, imageFile, imagePreview, modelPreview } = this.state
+    const { listCategory } = this.props
     return (
       <div className="container">
         <form className="col-md-offset-3 col-md-6">
           <div className="row">
             <div className="col-md-12 form-group">
+              <label htmlFor="category">Category: </label>
+              {listCategory &&
+                listCategory.get('ListItem') &&
+                listCategory.get('ListItem').length > 0 &&
+                <select
+                  ref={node => (this._category = node)}
+                  className="form-control"
+                  id="category"
+                >
+                  {listCategory.get('ListItem').map(category => {
+                    return (
+                      <option key={category['_id']} value={category['_id']}>
+                        {category['name']}
+                      </option>
+                    )
+                  })}
+                </select>}
+
               <label htmlFor="name">Name: </label>
               <input
                 type="text"
@@ -116,14 +148,15 @@ export default class Editor extends Component {
                 onChange={this._handleImageUpload}
               />
               {imageFile && <img src={imagePreview} />}
-              <label htmlFor="model">Do you have 3D model: </label>
-              <input
-                type="checkbox"
-                className="form-control"
-                checked={haveModel}
-                onChange={this._handleChange}
-                htmlFor="model"
-              />
+              <div>
+                <label htmlFor="model">Do you have 3D model: </label>
+                <input
+                  type="checkbox"
+                  checked={haveModel}
+                  onChange={this._handleChange}
+                  className={styles.model_checkbox}
+                />
+              </div>
               {haveModel
                 ? <div>
                     <input
@@ -132,14 +165,13 @@ export default class Editor extends Component {
                       onChange={this._handleModelUpload}
                     />
                     {modelPreview &&
-                      <Transform
-                        src={path.resolve(
-                          __dirname,
-                          `loader.html?urlLoader=${encodeURIComponent(modelPreview)}`
-                        )}
-                        width="50%"
-                        height="50%"
-                      />}
+                      <a
+                        className="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#editorPreview"
+                      >
+                        Preview
+                      </a>}
                   </div>
                 : null}
               <button className="btn btn-primary" onClick={this._addNewItem}>
@@ -148,6 +180,7 @@ export default class Editor extends Component {
             </div>
           </div>
         </form>
+        {modelPreview && <Preview id="editorPreview" url={modelPreview} />}
       </div>
     )
   }

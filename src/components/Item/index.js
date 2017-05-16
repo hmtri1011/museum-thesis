@@ -3,6 +3,7 @@ import React from 'react'
 //import styles from './item.css'
 //import path from 'path'
 //const url = 'http:///localhost:6060/uploads/dc55305c490c9d993faa5a9cbf678c8b'
+import config from '../../config'
 
 {
   /*<div>
@@ -37,7 +38,7 @@ const Item = props => {
       </div>
       <img
         className="img-responsive"
-        src={`http://localhost:6060/${image}`}
+        src={`${config.hostAPI}/${image}`}
         alt=""
       />
       <div className="detail">

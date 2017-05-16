@@ -1,20 +1,19 @@
 import fetch from 'isomorphic-fetch'
+import config from '../config'
 
-export async function getAllItem() {
+async function getAllItem() {
   try {
-    return await fetch('http://localhost:6060/api/items').then(res =>
-      res.json()
-    )
+    return await fetch(`${config.hostAPI}/api/items`).then(res => res.json())
   } catch (err) {
     throw err
   }
 }
 
-export async function upload(file) {
+async function upload(file) {
   try {
     const data = new FormData()
     data.append('file', file)
-    return await fetch('http://localhost:6060/api/upload/local', {
+    return await fetch(`${config.hostAPI}/api/upload/local`, {
       method: 'POST',
       body: data
     }).then(response => response.json())
@@ -23,9 +22,9 @@ export async function upload(file) {
   }
 }
 
-export async function addItem(item) {
+async function addItem(item) {
   try {
-    return await fetch('http://localhost:6060/api/items', {
+    return await fetch(`${config.hostAPI}/api/items`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
