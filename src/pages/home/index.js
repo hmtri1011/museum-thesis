@@ -1,20 +1,17 @@
 import React from 'react'
-import styles from './home.css'
+import Header from '../../components/header'
+import Breadcrumb from '../../components/Breadcrumb'
 
 const Home = () => {
+  const location = document.location.pathname.slice(1)
   return (
     <div>
-      Home page
-
-      <div className={styles.box}>
-
-        <div className={styles.text1}>
-          Text 1
-        </div>
-        <div className={styles.text2}>
-          Text 2
-        </div>
-      </div>
+      <Header />
+      <Breadcrumb
+        pageName="Home"
+        pageSummary="This is Homepage"
+        location={location}
+      />
     </div>
   )
 }
