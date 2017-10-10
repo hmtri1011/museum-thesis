@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
-import Header from '../../components/header'
-import Breadcrumb from '../../components/Breadcrumb'
 import Editor from '../../components/Editor'
-import styles from './admin.css'
+import Sidebar from '../../components/Sidebar'
+
+//import styles from './admin.css'
 
 class AdminPage extends PureComponent {
   constructor(props) {
@@ -26,9 +26,14 @@ class AdminPage extends PureComponent {
       })
   }
   render() {
-    const location = document.location.pathname.slice(1)
-    const { isAdmin } = this.state
-    return isAdmin
+    //const { isAdmin } = this.state
+    return (
+      <div>
+        <Sidebar />
+        <Editor />
+      </div>
+    )
+    /*return isAdmin
       ? <div>
           <Header />
           <Breadcrumb
@@ -36,6 +41,7 @@ class AdminPage extends PureComponent {
             pageSummary="Admin Page"
             location={location}
           />
+          <Sidebar />
           <Editor />
         </div>
       : <div className={styles.adminContainer}>
@@ -78,7 +84,7 @@ class AdminPage extends PureComponent {
               </div>
             </div>
           </div>
-        </div>
+        </div> */
   }
 }
 

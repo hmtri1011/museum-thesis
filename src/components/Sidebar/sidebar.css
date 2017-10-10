@@ -1,0 +1,21 @@
+@import '../../assets/styles/variable.css';
+
+.sidebar_container {
+  background: #F19100;
+
+  .sidebar_item {
+    margin: 2px 0 2px 0;
+    border-right: 2px solid #F19100;
+    height: 40px;
+    color: #F19100;
+    font-size: 14px;
+    background: white;
+    display: flex !important;
+    align-items: center;
+    justify-content: center
+  }
+}
+
+.toggle_arrow {
+  background-image: $arrow-left
+}

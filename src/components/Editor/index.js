@@ -96,7 +96,7 @@ export default class Editor extends Component {
     const { haveModel, imageFile, imagePreview, modelPreview } = this.state
     const { listCategory } = this.props
     return (
-      <div className="container">
+      <div className={`container ${styles.editor_container}`}>
         <form className="col-md-offset-3 col-md-6">
           <div className="row">
             <div className="col-md-12 form-group">

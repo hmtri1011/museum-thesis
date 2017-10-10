@@ -40,7 +40,6 @@ export function addNewItem(item) {
   return async dispatch => {
     const image = await upload(item.image)
     const itemInfo = { ...item, image }
-    console.log(itemInfo)
     addItem(itemInfo).then(newItem => {
       dispatch({ type: 'ADD_ITEM_SUCCESS', item: newItem })
     })
